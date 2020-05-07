@@ -9,12 +9,28 @@ const promptUser = () => {
     {
         type: 'input',
         name: 'name',
-        message: 'what is your name?'
+        message: 'what is your name? (Required)',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('please enter your name.');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'github',
-        message: 'Enter your github?'
+        message: 'Enter your github? (required)',
+        validate: githubInput => {
+            if (githubInput) {
+                return true;
+            } else {
+                console.log('please enter your github.');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
@@ -39,12 +55,28 @@ const promptProject = portfolioData => {
         {
             type: 'input',
             name: 'name',
-            message: 'what is the name of your project'
+            message: 'what is the name of your project',
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('please enter project name.');
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             name: 'description',
-            message: 'Provide a description of your project (required)'
+            message: 'Provide a description of your project (required)',
+            validate: desInput => {
+                if (desInput) {
+                    return true;
+                } else {
+                    console.log('please enter desription.');
+                    return false;
+                }
+            }
         },
         {
             type: 'checkbox',
@@ -56,7 +88,15 @@ const promptProject = portfolioData => {
         {
             type: 'input',
             name: 'link',
-            message: 'enter github link to your project (required)'
+            message: 'enter github link to your project (required)',
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log('please enter github link.');
+                    return false;
+                }
+            }
         },
         {
             type: 'confirm',
