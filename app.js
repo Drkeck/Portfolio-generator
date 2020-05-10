@@ -1,6 +1,6 @@
-const fs = require("fs"); //file system
 const inquirer = require("inquirer"); //npm package
 const generatePage = require('./src/page-template.js'); //site builder
+const { writeFile, copyFile }  = require('./utils/generate-site'); // writes site to the dist folder.
 const profileDataArgs = process.argv.slice(2, process.argv.lenght);
 const [name, github] = profileDataArgs;
 
@@ -131,10 +131,16 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-        const pageHTML = generatePage(portfolioData);
-        fs.writeFile('index.html', pageHTML, err => {
-        if (err) throw err;
-        console.log('portfolio complete! Check out index.html to see the output!');
-    });
- });
+        return generatePage(portfolioData);
+    }).then(pageHTML => {
+        return writeFile(pageHTML)})
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    })
